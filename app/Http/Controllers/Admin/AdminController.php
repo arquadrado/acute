@@ -25,8 +25,19 @@ class AdminController extends Controller
      */
     public function index()
     {
-        dd($this->resource);
-        return view('admin.index');
+        if (is_null($this->resource)) {
+            return view('admin.errors.unresolved-resource');
+        }
+
+        if (Manager::resourceExists($this->resource)) {
+            $className = Manager::getResourceClass($this->resource);
+
+            $items = $className::get();
+
+            return view("admin.{$this->resource}.index", ['items' => $items]);
+        }
+
+        return view('admin.errors.inexistent-model');
     }
 
     /**

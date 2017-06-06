@@ -17,11 +17,30 @@ class AdminResourceManagerTest extends TestCase
      */
     public function testResolveResource()
     {
-        $this->assertEquals('product', Manager::resolveResource('admin/products'));
-        $this->assertEquals('product', Manager::resolveResource('admin/products/edit'));
-        $this->assertEquals('store', Manager::resolveResource('admin/stores'));
+        $this->assertEquals('products', Manager::resolveResource('admin/products'));
+        $this->assertEquals('products', Manager::resolveResource('admin/products/edit'));
+        $this->assertEquals('stores', Manager::resolveResource('admin/stores'));
+        $this->assertEquals('pixies', Manager::resolveResource('admin/pixies'));
+        $this->assertEquals('flies', Manager::resolveResource('admin/flies'));
         $this->assertEquals(null, Manager::resolveResource('admin'));
-        $this->assertEquals('pixy', Manager::resolveResource('admin/pixies'));
-        $this->assertEquals('fly', Manager::resolveResource('admin/flies'));
+        $this->assertEquals(null, Manager::resolveResource('/'));
+        $this->assertEquals(null, Manager::resolveResource('xpto/xis'));
+        $this->assertEquals(null, Manager::resolveResource('xpto/admin'));
+    }
+
+    public function testResourceExists()
+    {
+        $this->assertTrue(Manager::resourceExists('users'));
+        $this->assertTrue(Manager::resourceExists('products'));
+        $this->assertTrue(Manager::resourceExists('product'));
+        $this->assertFalse(Manager::resourceExists('xarope'));
+    }
+
+    public function testGetResourceClass()
+    {
+        $this->assertEquals('App\\Models\\Product', Manager::getResourceClass('products'));
+        $this->assertEquals('App\\Models\\User', Manager::getResourceClass('users'));
+        $this->assertEquals('App\\Models\\AdminUser', Manager::getResourceClass('admin_users'));
+        $this->assertEquals(null, Manager::getResourceClass('floods'));
     }
 }

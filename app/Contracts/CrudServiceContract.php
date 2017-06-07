@@ -29,7 +29,7 @@ interface CrudServiceContract
      * @param  array $attributes - Model's attributes to update
      * @return Illuminate\Database\Eloquent\Model $model - updated models
      */
-    public function update(Model $model, $attributes);
+    public function update(Model $model = null, $attributes);
 
     /**
      * Delete models
@@ -45,5 +45,5 @@ interface CrudServiceContract
      * @param  Illuminate\Database\Eloquent\Model $model - model
      * @return Illuminate\Database\Eloquent\Model $model - saved models
      */
-    public function save(Model $model);
+    public function save(Model $model = null);
 }

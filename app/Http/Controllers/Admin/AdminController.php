@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Support\Admin\Facades\AdminResourceManager as Manager;
-use App\Support\Facades\CrudManager as Crook;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -61,7 +60,7 @@ class AdminController extends Controller
         //$model = Manager::instantiateResource($this->resource);
         $className = Manager::getResourceClass($this->resource);
 
-        $model = Crook::create($className);
+        $model = Manager::instantiateResource($this->resource);
 
         if (is_null($model)) {
             return view('admin.errors.inexistent-model');
@@ -69,7 +68,8 @@ class AdminController extends Controller
 
         return view("admin.{$this->resource}.edit", [
             'resource' => $this->resource,
-            'model' => $model
+            'model' => $model,
+            'action' => 'store'
         ]);
     }
 
@@ -81,14 +81,11 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-
         if (is_null($this->resource)) {
             return view('admin.errors.unresolved-resource');
         }
 
-        $className = Manager::getResourceClass($this->resource);
-        $model = Crook::create($className);
+        $model = Manager::instantiateResource($this->resource);
 
         if (is_null($model)) {
             return view('admin.errors.inexistent-model');
@@ -99,8 +96,8 @@ class AdminController extends Controller
         // extracts all the request fields excepting the csrf token
         $fields = array_except($request->all(), ['_token']);
 
-        $model = Crook::update($model, $fields);
-        $model = Crook::save($model);
+        $model->fill($fields);
+        $model->save();
 
         return redirect()->route("admin.{$this->resource}.edit", [str_singular($this->resource) => $model->id])->with(['message' => 'Cool']);
     }
@@ -124,7 +121,23 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (is_null($this->resource)) {
+            return view('admin.errors.unresolved-resource');
+        }
+
+        $className = Manager::getResourceClass($this->resource);
+
+        $model = $className::find($id);
+
+        if (is_null($model)) {
+            return view('admin.errors.inexistent-model');
+        }
+
+        return view("admin.{$this->resource}.edit", [
+            'resource' => $this->resource,
+            'model' => $model,
+            'action' => 'update'
+        ]);
     }
 
     /**
@@ -136,7 +149,27 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (is_null($this->resource)) {
+            return view('admin.errors.unresolved-resource');
+        }
+
+        $className = Manager::getResourceClass($this->resource);
+
+        $model = $className::find($id);
+
+        if (is_null($model)) {
+            return view('admin.errors.inexistent-model');
+        }
+
+        $this->validate($request, $model->getRules());
+
+        // extracts all the request fields excepting the csrf token
+        $fields = array_except($request->all(), ['_token']);
+
+        $model->fill($fields);
+        $model->save();
+
+        return redirect()->route("admin.{$this->resource}.edit", [str_singular($this->resource) => $model->id])->with(['message' => 'Cool']);
     }
 
     /**

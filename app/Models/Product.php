@@ -12,6 +12,10 @@ class Product extends Model
         'name'
     ];
 
+    protected $fillable = [
+        'name'
+    ];
+
     protected $rules = [
         'name' => 'required|max:255'
     ];

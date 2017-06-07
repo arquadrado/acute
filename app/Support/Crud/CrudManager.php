@@ -24,7 +24,7 @@ class CrudManager implements CrudServiceContract
         return $this->service->read($class);
     }
 
-    public function update(Model $model, $attributes = [])
+    public function update(Model $model = null, $attributes = [])
     {
         return $this->service->update($model, $attributes);
     }
@@ -34,7 +34,7 @@ class CrudManager implements CrudServiceContract
         return $this->service->delete($class);
     }
 
-    public function save(Model $model)
+    public function save(Model $model = null)
     {
         return $this->service->save($model);
     }

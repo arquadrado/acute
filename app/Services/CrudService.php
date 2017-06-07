@@ -8,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class CrudService implements CrudServiceContract
 {
     protected $defaultResourceDirectory = 'App\\Models\\';
-    //protected $model = null;
+    protected $model = null;
 
     public function create($class)
     {
         if (is_null($class)) {
             return null;
         }
-        //$this->model = new $class;
-        //return $this;
-        return new $class;
+        $this->model = new $class;
+        return $this;
     }
 
     public function read($class)
@@ -25,15 +24,16 @@ class CrudService implements CrudServiceContract
         //
     }
 
-    public function update(Model $model, $attributes = [])
+    public function update(Model $model = null, $attributes = [])
     {
-        //$model = is_null($model) ? $this->model : $model;
+        $model = is_null($model) ? $this->model : $model;
 
         foreach ($attributes as $label => $value) {
             $model->$label = $value;
         }
-        //$this->model = $model;
-        return $model;
+        $this->model = $model;
+
+        return $this;
     }
 
     public function delete(Model $model)
@@ -41,11 +41,14 @@ class CrudService implements CrudServiceContract
         //
     }
 
-    public function save(Model $model)
+    public function save(Model $model = null)
     {
+        $model = is_null($model) ? $this->model : $model;
+
         try {
             $model->save();
-            return $model;
+            $this->model = $model;
+            return $this;
         } catch (\Exception $e) {
             return $e;
         }

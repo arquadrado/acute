@@ -36,6 +36,12 @@ class AdminResourceManagerTest extends TestCase
         $this->assertFalse(Manager::resourceExists('xarope'));
     }
 
+    public function testInstantiateResource()
+    {
+        $this->assertTrue(is_object(Manager::instantiateResource('products')));
+        $this->assertFalse(is_object(Manager::instantiateResource('patos')));
+    }
+
     public function testGetResourceClass()
     {
         $this->assertEquals('App\\Models\\Product', Manager::getResourceClass('products'));

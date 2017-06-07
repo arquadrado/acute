@@ -48,7 +48,7 @@ class AdminService implements AdminServiceContract
      * @param  string $resource
      * @return Model $resourceModel or null
      */
-    public function instanciateResource($resource, $directory = null)
+    public function instantiateResource($resource, $directory = null)
     {
         if (is_null($directory)) {
             $directory = $this->defaultResourceDirectory;
@@ -64,7 +64,6 @@ class AdminService implements AdminServiceContract
 
         return null;
     }
-
 
     /**
      * Gets the class of a given admin resource

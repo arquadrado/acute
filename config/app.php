@@ -177,6 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\AdminServiceProvider::class,
+        App\Providers\CrudServiceProvider::class,
 
     ],
 
@@ -226,7 +227,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'AdminResourceManager' => App\Support\Admin\Facades\AdminResourceManager::class
+        'AdminResourceManager' => App\Support\Admin\Facades\AdminResourceManager::class,
+        'CrudManager' => App\Support\Admin\Facades\CrudManager::class
 
     ],
 

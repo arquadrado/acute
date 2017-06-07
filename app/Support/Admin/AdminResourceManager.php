@@ -23,6 +23,11 @@ class AdminResourceManager implements AdminServiceContract
         return $this->service->resourceExists($resource);
     }
 
+    public function instantiateResource($resource, $directory = null)
+    {
+        return $this->service->instantiateResource($resource);
+    }
+
     public function getResourceClass($resource, $directory = null)
     {
         return $this->service->getResourceClass($resource, $directory);

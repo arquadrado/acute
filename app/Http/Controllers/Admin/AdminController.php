@@ -99,7 +99,14 @@ class AdminController extends Controller
         $model->fill($fields);
         $model->save();
 
-        return redirect()->route("admin.{$this->resource}.edit", [str_singular($this->resource) => $model->id])->with(['message' => 'Cool']);
+        return redirect()
+                ->route("admin.{$this->resource}.edit", [
+                    str_singular($this->resource) => $model->id
+                ])
+                ->with('response', [
+                    'status' => 0,
+                    'message' => 'Cool'
+                ]);
     }
 
     /**

@@ -2,6 +2,6 @@
 
 return [
     'product' => [
-        'name' => 'Sarampo'
+        'name' => 'Nome'
     ]
 ];

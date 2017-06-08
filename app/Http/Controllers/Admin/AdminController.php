@@ -166,10 +166,16 @@ class AdminController extends Controller
         // extracts all the request fields excepting the csrf token
         $fields = array_except($request->all(), ['_token']);
 
-        $model->fill($fields);
-        $model->save();
+        $model->fill($fields)->save();
 
-        return redirect()->route("admin.{$this->resource}.edit", [str_singular($this->resource) => $model->id])->with(['message' => 'Cool']);
+        return redirect()
+                ->route("admin.{$this->resource}.edit", [
+                    str_singular($this->resource) => $model->id
+                ])
+                ->with('response', [
+                    'status' => 0,
+                    'message' => 'Cool'
+                ]);
     }
 
     /**
@@ -180,6 +186,25 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (is_null($this->resource)) {
+            return view('admin.errors.unresolved-resource');
+        }
+
+        $className = Manager::getResourceClass($this->resource);
+
+        $model = $className::find($id);
+
+        if (is_null($model)) {
+            return view('admin.errors.inexistent-model');
+        }
+
+        $model->delete();
+
+        return redirect()
+                ->route("admin.{$this->resource}.index")
+                ->with('response', [
+                    'status' => 0,
+                    'message' => 'Cool'
+                ]);
     }
 }

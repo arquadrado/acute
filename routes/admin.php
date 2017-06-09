@@ -13,6 +13,14 @@ Route::resource('products', 'ProductController', [
     'as' => 'admin'
 ]);
 
+Route::resource('recipes', 'RecipeController', [
+    'as' => 'admin'
+]);
+
+Route::resource('testimonials', 'TestimonialController', [
+    'as' => 'admin'
+]);
+
 Route::get('login', [
     'as' => 'admin.login',
     'uses' => 'Auth\LoginController@showLoginForm'

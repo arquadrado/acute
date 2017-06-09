@@ -1,7 +1,17 @@
 @extends('admin.partials.master')
 
 @section('content')
-    <div class="product-list">
+    @if (isset($errors) && !$errors->isEmpty())
+    {{ dd($errors) }}
+    @endif
+    <edit-panel
+        :token="'{{ $token }}'"
+        :resource="'{{ $resource }}'"
+        :update="'{{ route('admin.'.$resource.'.'.$action, ['id' => $model->id]) }}'"
+        :destroy="'{{ route('admin.'.$resource.'.destroy', ['id' => $model->id]) }}'"
+        :model="{{ $model }}"
+    />
+    {{-- <div class="product-list">
         <h2>Hey, I'm the product edit panel</h2>
         @if (isset($errors) && !$errors->isEmpty())
         {{ dd($errors) }}
@@ -18,6 +28,10 @@
                 <label for="{{ $column }}">{{ $model->getColumnLabel($column) }}</label>
                 <input type="text" name="{{ $column }}" value="{{ $model->$column }}">
             @endforeach
+
+            @if ($model->isMediable())
+                <media-box :media="{{ $model->media }}"></media-box>
+            @endif
             <button type="submit" class="btn btn-default">Salvar</button>
         </form>
         <form action="{{ route('admin.'.$resource.'.destroy', ['id' => $model->id]) }}" method="POST">
@@ -27,6 +41,5 @@
             @endif
             <button type="submit" class="btn btn-default">Apagar</button>
         </form>
-
-    </div>
+    </div> --}}
 @endsection

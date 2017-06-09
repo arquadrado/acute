@@ -11,7 +11,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('/admin') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
@@ -31,6 +31,12 @@
                 @else
                     <li class="products">
                         <a href="{{ route('admin.products.index') }}">Produtos</a>
+                    </li>
+                    <li class="recipes">
+                        <a href="{{ route('admin.recipes.index') }}">Receitas</a>
+                    </li>
+                    <li class="testimonials">
+                        <a href="{{ route('admin.testimonials.index') }}">Testemunhos</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

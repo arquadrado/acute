@@ -1,0 +1,23 @@
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+.media-box {
+    .insert {
+        margin-bottom: 28px;
+    }
+    .media {
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+

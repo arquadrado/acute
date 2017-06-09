@@ -13,7 +13,7 @@
         </a>
         <ul class="products">
             @foreach($items as $item)
-            <li><a href="{{ route("admin.{$resource}.edit", ['id' => $item->id]) }}">{{ $item->name }}</a></li>
+            <li><a href="{{ route("admin.{$resource}.edit", ['id' => $item->id]) }}">{{ $item->designation }}</a></li>
             @endforeach
         </ul>
     </div>

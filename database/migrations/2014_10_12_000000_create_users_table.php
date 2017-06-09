@@ -17,6 +17,10 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('type');
+            $table->integer('points')->unsigned()->default(0);
+            $table->string('patology')->nullable();
+            $table->text('treatment')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

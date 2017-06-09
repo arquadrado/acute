@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'type', 'patology','treatment'
     ];
 
     /**
@@ -26,4 +26,25 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The mutated attributes that should be appended as regular attributes.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'display_type'
+    ];
+
+    //mutators
+    public function getDisplayTypeAttribute()
+    {
+        switch ($this->type) {
+            case 'patient':
+                return 'Paciente';
+
+            case 'other':
+                return 'Familiar ou prestador de cuidados';
+        }
+    }
 }

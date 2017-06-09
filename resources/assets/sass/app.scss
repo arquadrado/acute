@@ -7,3 +7,13 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+    background-color: #f2ebfb;
+}
+
+.profile {
+    .field {
+        margin-bottom: 28px;
+    }
+}

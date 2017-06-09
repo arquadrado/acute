@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('partials.master')
 
 @section('content')
 <div class="container">
@@ -35,6 +35,53 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+                            <label for="type" class="col-md-4 control-label">Type</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="type" id="type" v-model="userType">
+                                    <option selected>Choose...</option>
+                                    <option value="patient">Patient</option>
+                                    <option value="other">Other</option>
+                                  </select>
+
+                                @if ($errors->has('type'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('type') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="patient-fields" v-if="isPatient">
+
+                            <div class="form-group{{ $errors->has('patology') ? ' has-error' : '' }}">
+                                <label for="patology" class="col-md-4 control-label">Patology</label>
+                                <div class="col-md-6">
+                                    <input id="patology" type="text" class="form-control" name="patology" value="{{ old('patology') }}">
+
+                                    @if ($errors->has('patology'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('patology') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('treatment') ? ' has-error' : '' }}">
+                                <label for="type" class="col-md-4 control-label">Treatment</label>
+                                <div class="col-md-6">
+                                    <input id="treatment" type="text" class="form-control" name="treatment" value="{{ old('treatment') }}">
+
+                                    @if ($errors->has('treatment'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('treatment') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
 

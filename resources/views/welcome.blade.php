@@ -79,11 +79,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Nutricia Pontos
+                   
                 </div>
 
                 <div class="links">
-                    <a href="https://www.nutricia.com/">Nutrícia</a>
+                    <a href=""></a>
                 </div>
             </div>
         </div>
